@@ -41,8 +41,8 @@ function makeQuad(r) {
         // console.log(aa);
         let midAngle = GetAverageAngle(angle, angle2) + Math.PI;
         var v0e = {
-            x: vec0.x + Math.cos(midAngle) * (0.04 + aa * 0),
-            y: vec0.y + Math.sin(midAngle) * (0.04 + aa * 0)
+            x: vec0.x + Math.cos(midAngle) * (ww + aa * 0),
+            y: vec0.y + Math.sin(midAngle) * (ww + aa * 0)
         };
         // ellipse(v0e.x, v0e.y, 5);
         return v0e;
@@ -85,7 +85,7 @@ function makeQuad(r) {
 
     let colors = [];
     for (let i = 0; i < 4; i++) {
-        colors.push(c.r, c.g, c.b, 1.0);
+        colors.push(c.r, c.g, c.b, c.a);
     }
     for (let i = 0; i < 4; i++) {
         colors.push(c.r, c.g, c.b, 0.0);
@@ -96,6 +96,18 @@ function makeQuad(r) {
         vertices: vertices,
         indices: indices
     };
+}
+
+function addRectangleToBuffers(r) {
+    for (let i = 0; i < r.colors.length; i++) {
+        colors.push(r.colors[i]);
+    }
+    for (let i = 0; i < r.vertices.length; i++) {
+        vertices.push(r.vertices[i]);
+    }
+    for (let i = 0; i < r.indices.length; i++) {
+        indices.push(r.indices[i]);
+    }
 }
 
 

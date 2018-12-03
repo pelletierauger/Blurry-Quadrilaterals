@@ -2,13 +2,15 @@ function setShaders() {
     /*======================= Shaders =======================*/
 
     // vertex shader source code
-    var vertCode = 'attribute vec3 coordinates;' +
-        'attribute vec4 color;' +
-        'varying vec4 vColor;' +
-        'void main(void) {' +
-        ' gl_Position = vec4(coordinates, 1.0);' +
-        'vColor = color;' +
-        '}';
+    var vertCode = `
+    attribute vec3 coordinates;
+        attribute vec4 color;
+        varying vec4 vColor;
+        void main(void) {
+            gl_Position = vec4(coordinates, 1.0);
+            gl_Position.x = gl_Position.x * (1600.0 / 2560.0);
+        vColor = color;
+    }`;
 
     // Create a vertex shader object
     var vertShader = gl.createShader(gl.VERTEX_SHADER);
@@ -31,6 +33,7 @@ function setShaders() {
         vec2 pos = gl_PointCoord;
         float rando = rand(pos);
         gl_FragColor = vec4(vColor.x, vColor.y, vColor.z, vColor.w - (rando * 0.4));
+        // gl_FragColor = vColor;
     }`;
 
     // Create fragment shader object

@@ -15,7 +15,7 @@ function frameExport() {
     while (formattedFrameCount.length < 5) {
         formattedFrameCount = "0" + formattedFrameCount;
     }
-    var dataUrl = canvasDOM.toDataURL();
+    var dataUrl = cnvs.toDataURL();
     var data = {
         dataUrl: dataUrl,
         name: fileName + "-" + formattedFrameCount
