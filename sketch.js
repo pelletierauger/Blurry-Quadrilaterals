@@ -7,6 +7,7 @@ let gl, shaderProgram;
 let vertices = [];
 let colors = [];
 let indices = [];
+let amountOfLines = 0;
 
 function setup() {
     socket = io.connect('http://localhost:8080');
@@ -72,52 +73,95 @@ function draw() {
 
     let rectangle;
 
+    rectangle = makeQuad({
+        c: [0.0, 0.2, 0.7, 0.75],
+        v: [
+            [-2 + (Math.sin(t * 0.05) * osc), -2 + (Math.cos(t * 0.05) * osc)],
+            [2 + (Math.sin(t * 0.015) * osc), -2 + (Math.cos(t * 0.015) * osc)],
+            [2 + (Math.sin(t * 0.015) * osc), 2 + (Math.cos(t * 0.015) * osc)],
+            [-2 + (Math.sin(t * 0.05) * osc), 2 + (Math.cos(t * 0.05) * osc)]
+        ]
+    });
+    addRectangleToBuffers(rectangle);
+    // let r = map(sin(frameCount * 0.15), -1, 1, 0, 1);
     // rectangle = makeQuad({
-    //     c: [0.0, 0.0, 0.0, 0.15],
+    //     c: [0.9, r, 1 - r, 1.0],
     //     v: [
-    //         [-2 + (Math.sin(t * 0.05) * osc), -1 + (Math.cos(t * 0.05) * osc)],
-    //         [2 + (Math.sin(t * 0.015) * osc), -1 + (Math.cos(t * 0.015) * osc)],
-    //         [2 + (Math.sin(t * 0.015) * osc), 1 + (Math.cos(t * 0.015) * osc)],
-    //         [-2 + (Math.sin(t * 0.05) * osc), 1 + (Math.cos(t * 0.05) * osc)]
+    //         [-0.35 + (Math.sin(t * 0.05) * osc), 0.25 + (Math.cos(t * 0.05) * osc)],
+    //         [0.35 + (Math.sin(t * 0.015) * osc), 0.25 + (Math.cos(t * 0.015) * osc)],
+    //         [0.35 + (Math.sin(t * 0.015) * osc), 0.27 + (Math.cos(t * 0.015) * osc)],
+    //         [-0.35 + (Math.sin(t * 0.05) * osc), 0.27 + (Math.cos(t * 0.05) * osc)]
+    //     ],
+    //     blurFactor: 1
+    // });
+    // addRectangleToBuffers(rectangle);
+    // // osc = 0.02;
+    // r = map(sin(frameCount * 0.05), -1, 1, 0, 1);
+    // rectangle = makeQuad({
+    //     c: [r * 0.5, 1 - r, 1, 1.0],
+    //     v: [
+    //         [0.245 + (Math.sin(t * 0.05) * osc), 0.35 + (Math.cos(t * 0.05) * osc)],
+    //         [0.25 + (Math.sin(t * 0.05) * osc), 0.35 + (Math.cos(t * 0.05) * osc)],
+    //         [0.25 + (Math.sin(t * 0.045) * osc), -0.35 + (Math.cos(t * 0.015) * osc)],
+    //         [0.245 + (Math.sin(t * 0.045) * osc), -0.35 + (Math.cos(t * 0.015) * osc)]
     //     ]
     // });
     // addRectangleToBuffers(rectangle);
 
-    let r = map(sin(frameCount * 0.15), -1, 1, 0, 1);
-    rectangle = makeQuad({
-        c: [0.9, r, 1 - r, 1.0],
-        v: [
-            [-0.35 + (Math.sin(t * 0.05) * osc), 0.25 + (Math.cos(t * 0.05) * osc)],
-            [0.35 + (Math.sin(t * 0.015) * osc), 0.25 + (Math.cos(t * 0.015) * osc)],
-            [0.35 + (Math.sin(t * 0.015) * osc), 0.27 + (Math.cos(t * 0.015) * osc)],
-            [-0.35 + (Math.sin(t * 0.05) * osc), 0.27 + (Math.cos(t * 0.05) * osc)]
-        ]
-    });
-    addRectangleToBuffers(rectangle);
-    // osc = 0.02;
-    r = map(sin(frameCount * 0.05), -1, 1, 0, 1);
-    rectangle = makeQuad({
-        c: [r * 0.5, 1 - r, 1, 1.0],
-        v: [
-            [0.245 + (Math.sin(t * 0.05) * osc), 0.35 + (Math.cos(t * 0.05) * osc)],
-            [0.25 + (Math.sin(t * 0.05) * osc), 0.35 + (Math.cos(t * 0.05) * osc)],
-            [0.25 + (Math.sin(t * 0.045) * osc), -0.35 + (Math.cos(t * 0.015) * osc)],
-            [0.245 + (Math.sin(t * 0.045) * osc), -0.35 + (Math.cos(t * 0.015) * osc)]
-        ]
-    });
-    addRectangleToBuffers(rectangle);
+    // osc = 0.04;
+    // rectangle = makeQuad({
+    //     c: [0.0, 0.0, 0.0, 1.0],
+    //     v: [
+    //         [0.245 + (Math.sin(t * 0.05) * osc), 0.35 + (Math.cos(t * 0.05) * osc)],
+    //         [0.25 + (Math.sin(t * 0.05) * osc), 0.35 + (Math.cos(t * 0.05) * osc)],
+    //         [0.25 + (Math.sin(t * 0.045) * osc), -0.35 + (Math.cos(t * 0.015) * osc)],
+    //         [0.245 + (Math.sin(t * 0.045) * osc), -0.35 + (Math.cos(t * 0.015) * osc)]
+    //     ]
+    // });
+    // addRectangleToBuffers(rectangle);
 
-    osc = 0.04;
-    rectangle = makeQuad({
-        c: [0.0, 0.0, 0.0, 1.0],
-        v: [
-            [0.245 + (Math.sin(t * 0.05) * osc), 0.35 + (Math.cos(t * 0.05) * osc)],
-            [0.25 + (Math.sin(t * 0.05) * osc), 0.35 + (Math.cos(t * 0.05) * osc)],
-            [0.25 + (Math.sin(t * 0.045) * osc), -0.35 + (Math.cos(t * 0.015) * osc)],
-            [0.245 + (Math.sin(t * 0.045) * osc), -0.35 + (Math.cos(t * 0.015) * osc)]
-        ]
-    });
-    addRectangleToBuffers(rectangle);
+    // for (let i = -1.25; i < 1.25; i += 0.04) {
+    //     let blur = map(i, -1.25, 1.25, 0.01, 0.05);
+    //     let weight = map(i, -1.25, 1.25, 0.001, 0.001);
+    //     lineOptions.weight = weight;
+    //     lineOptions.blurFactor = blur;
+    //     let r = map(i, -1.25, 1.25, 0.0, 1.0);
+    //     let g = map(i, -1.25, 1.25, 0.5, 1.0);
+    //     let b = map(i, -1.25, 1.25, 1.0, 0.0);
+    //     lineOptions.r = r;
+    //     lineOptions.g = g;
+    //     lineOptions.b = b;
+    //     let x = sin(frameCount * 0.01 + i) * 0.75;
+    //     let x1 = sin(frameCount * 0.02 + i) * 0.75;
+    //     makeLine(i + x, -0.5 + x1, i + x1, 0.5 + x);
+    // }
+
+    lineOptions.weight = 0.001;
+    lineOptions.blurFactor = 0.01;
+    amountOfLines = 0;
+    let s = 0.01;
+    for (let i = 0; i < Math.PI * 50; i += 0.4) {
+        let blur = map(i, 0, Math.PI * 50, 0.01, 0.01);
+        let weight = map(i, 0, Math.PI * 50, 0.001, 0.02);
+        lineOptions.weight = weight;
+        lineOptions.blurFactor = blur;
+        let maxG = map(sin(frameCount * 0.01), -1, 1, 0, 1);
+        let r = map(i, 0, Math.PI * 50, 1.0, 0.5);
+        // r = map(sin(i * 0.1), -1, 1, 0.0, 1.0);
+        let g = map(i, 0, Math.PI * 50, 0.5, maxG);
+        let b = map(i, 0, Math.PI * 50, 0.0, 0.7);
+        lineOptions.r = r;
+        lineOptions.g = g;
+        lineOptions.b = b;
+        let x0 = cos(i * frameCount * 0.0001) * cos(frameCount * 0.025 + i) * i * s;
+        let y0 = cos(i * frameCount * 0.0001) * sin(frameCount * 0.025 + i) * i * s;
+        let x1 = cos((i + 1) * frameCount * 0.0001) * cos(frameCount * 0.025 + i + 1) * (i + 1) * s * 0.25;
+        let y1 = cos((i + 1) * frameCount * 0.0001) * sin(frameCount * 0.025 + i + 1) * (i + 1) * s * 0.25;
+        makeLine(x0 * 1, y0 * 1, x1 * 1, y1 * 1);
+        amountOfLines++;
+    }
+
+
 
     // var vertices = [-0.75, 0.0, 0.0, -0.5, -0.5, 0.0,
     //     0.75, 0.0, 0.0, 0.5, 0.5, 0.0

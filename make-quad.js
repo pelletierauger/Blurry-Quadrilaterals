@@ -1,3 +1,12 @@
+let lineOptions = {
+    weight: 1,
+    blurFactor: 2,
+    r: 1.0,
+    g: 1.0,
+    b: 1.0,
+    a: 1.0
+};
+
 let rectangles = 0;
 
 function makeQuad(r) {
@@ -37,12 +46,12 @@ function makeQuad(r) {
     function drawExtension(vec0, vec1, vec2, ext) {
         var angle = Math.atan2(vec1.y - vec0.y, vec1.x - vec0.x);
         var angle2 = Math.atan2(vec2.y - vec0.y, vec2.x - vec0.x);
-        let aa = GetAverageAngle(angle, angle2);
+        let aa = getAverageAngle(angle, angle2);
         // console.log(aa);
-        let midAngle = GetAverageAngle(angle, angle2) + Math.PI;
+        let midAngle = getAverageAngle(angle, angle2) + Math.PI;
         var v0e = {
-            x: vec0.x + Math.cos(midAngle) * (ww + aa * 0),
-            y: vec0.y + Math.sin(midAngle) * (ww + aa * 0)
+            x: vec0.x + Math.cos(midAngle) * (r.blurFactor + aa * 0),
+            y: vec0.y + Math.sin(midAngle) * (r.blurFactor + aa * 0)
         };
         // ellipse(v0e.x, v0e.y, 5);
         return v0e;
@@ -111,7 +120,7 @@ function addRectangleToBuffers(r) {
 }
 
 
-function GetAverageAngle(angleA, angleB) {
+function getAverageAngle(angleA, angleB) {
     if (angleA > angleB) {
         var temp = angleA;
         angleA = angleB;
@@ -125,4 +134,31 @@ function GetAverageAngle(angleA, angleB) {
         finalAngle += Math.PI * 2;
     };
     return finalAngle;
+}
+
+function makeLine(x0, y0, x1, y1) {
+    let w = lineOptions.weight;
+    let a0 = Math.atan2(y1 - y0, x1 - x0);
+    let halfPI = Math.PI * 0.5;
+    let xA = x0 + cos(a0 + halfPI) * w;
+    let yA = y0 + sin(a0 + halfPI) * w;
+    let xB = x0 + cos(a0 - halfPI) * w;
+    let yB = y0 + sin(a0 - halfPI) * w;
+    let a1 = Math.atan2(y0 - y1, x0 - x1);
+    let xC = x1 + cos(a1 + halfPI) * w;
+    let yC = y1 + sin(a1 + halfPI) * w;
+    let xD = x1 + cos(a1 - halfPI) * w;
+    let yD = y1 + sin(a1 - halfPI) * w;
+    // return (xA, yA, xB, yB, xC, yC, xD, yD);
+    let rectangle = makeQuad({
+        c: [lineOptions.r, lineOptions.g, lineOptions.b, lineOptions.a],
+        v: [
+            [xA, yA],
+            [xB, yB],
+            [xC, yC],
+            [xD, yD]
+        ],
+        blurFactor: lineOptions.blurFactor
+    });
+    addRectangleToBuffers(rectangle);
 }
