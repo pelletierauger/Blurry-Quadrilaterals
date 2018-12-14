@@ -107,17 +107,17 @@ function draw() {
     });
     addRectangleToBuffers(rectangle);
 
-    // osc = 0.04;
-    // rectangle = makeQuad({
-    //     c: [0.0, 0.0, 0.0, 1.0],
-    //     v: [
-    //         [0.245 + (Math.sin(t * 0.05) * osc), 0.35 + (Math.cos(t * 0.05) * osc)],
-    //         [0.25 + (Math.sin(t * 0.05) * osc), 0.35 + (Math.cos(t * 0.05) * osc)],
-    //         [0.25 + (Math.sin(t * 0.045) * osc), -0.35 + (Math.cos(t * 0.015) * osc)],
-    //         [0.245 + (Math.sin(t * 0.045) * osc), -0.35 + (Math.cos(t * 0.015) * osc)]
-    //     ]
-    // });
-    // addRectangleToBuffers(rectangle);
+    osc = 0.04;
+    rectangle = makeQuad({
+        c: [0.0, 0.0, 0.0, 1.0],
+        v: [
+            [0.245 + (Math.sin(t * 0.05) * osc), 0.35 + (Math.cos(t * 0.05) * osc)],
+            [0.25 + (Math.sin(t * 0.05) * osc), 0.35 + (Math.cos(t * 0.05) * osc)],
+            [0.25 + (Math.sin(t * 0.045) * osc), -0.35 + (Math.cos(t * 0.015) * osc)],
+            [0.245 + (Math.sin(t * 0.045) * osc), -0.35 + (Math.cos(t * 0.015) * osc)]
+        ]
+    });
+    addRectangleToBuffers(rectangle);
 
     // var vertices = [-0.75, 0.0, 0.0, -0.5, -0.5, 0.0,
     //     0.75, 0.0, 0.0, 0.5, 0.5, 0.0
