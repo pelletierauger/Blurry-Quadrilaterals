@@ -74,7 +74,7 @@ function draw() {
     let rectangle;
 
     rectangle = makeQuad({
-        c: [0.0, 0.2, 0.7, 0.75],
+        c: [0.9, 0.2, 0.1, 0.75],
         v: [
             [-2 + (Math.sin(t * 0.05) * osc), -2 + (Math.cos(t * 0.05) * osc)],
             [2 + (Math.sin(t * 0.015) * osc), -2 + (Math.cos(t * 0.015) * osc)],
@@ -137,14 +137,15 @@ function draw() {
     // }
 
     lineOptions.weight = 0.001;
-    lineOptions.blurFactor = 0.01;
+    // lineOptions.blurFactor = 0.01;
     amountOfLines = 0;
     let s = 0.01;
-    for (let i = 0; i < Math.PI * 50; i += 0.4) {
+    for (let i = 0; i < Math.PI * 50; i += 2) {
         let blur = map(i, 0, Math.PI * 50, 0.01, 0.01);
         let weight = map(i, 0, Math.PI * 50, 0.001, 0.02);
-        lineOptions.weight = weight;
-        lineOptions.blurFactor = blur;
+        // lineOptions.weight = weight;
+        // lineOptions.blurFactor = blur;
+        // lineOptions.blurFactor = map(i, 0, Math.PI * 50, 0.01, 0.r1);
         let maxG = map(sin(frameCount * 0.01), -1, 1, 0, 1);
         let r = map(i, 0, Math.PI * 50, 1.0, 0.5);
         // r = map(sin(i * 0.1), -1, 1, 0.0, 1.0);
@@ -153,11 +154,11 @@ function draw() {
         lineOptions.r = r;
         lineOptions.g = g;
         lineOptions.b = b;
-        let x0 = cos(i * frameCount * 0.0001) * cos(frameCount * 0.025 + i) * i * s;
-        let y0 = cos(i * frameCount * 0.0001) * sin(frameCount * 0.025 + i) * i * s;
-        let x1 = cos((i + 1) * frameCount * 0.0001) * cos(frameCount * 0.025 + i + 1) * (i + 1) * s * 0.25;
-        let y1 = cos((i + 1) * frameCount * 0.0001) * sin(frameCount * 0.025 + i + 1) * (i + 1) * s * 0.25;
-        makeLine(x0 * 1, y0 * 1, x1 * 1, y1 * 1);
+        let x0 = cos(frameCount * 0.0001) * cos(frameCount * 0.025 + i) * i * s;
+        let y0 = cos(frameCount * 0.0001) * sin(frameCount * 0.025 + i) * i * s;
+        let x1 = cos(frameCount * 0.01) * cos(frameCount * 0.025 + i + 1) * (i + 1) * s * 0.25;
+        let y1 = cos(frameCount * 0.01) * sin(frameCount * 0.025 + i + 1) * (i + 1) * s * 0.25;
+        makeLine(x0 * 1, y0 * 1, x1 * 8, y1 * 8);
         amountOfLines++;
     }
 
@@ -259,3 +260,17 @@ function keyPressed() {
         }
     }
 }
+
+const supported = (() => {
+    try {
+        if (typeof WebAssembly === "object" &&
+            typeof WebAssembly.instantiate === "function") {
+            const module = new WebAssembly.Module(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00));
+            if (module instanceof WebAssembly.Module)
+                return new WebAssembly.Instance(module) instanceof WebAssembly.Instance;
+        }
+    } catch (e) {}
+    return false;
+})();
+
+console.log(supported ? "WebAssembly is supported" : "WebAssembly is not supported");
