@@ -14,6 +14,10 @@ canvas {
     right: 0;
 }
 
+#my_Canvas {
+    /*width: 100%;*/
+}
+
 .canvasZero {
     z-index: 0;
 }

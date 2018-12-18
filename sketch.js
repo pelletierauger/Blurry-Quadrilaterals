@@ -139,26 +139,26 @@ function draw() {
     lineOptions.weight = 0.001;
     // lineOptions.blurFactor = 0.01;
     amountOfLines = 0;
-    let s = 0.01;
-    for (let i = 0; i < Math.PI * 50; i += 2) {
-        let blur = map(i, 0, Math.PI * 50, 0.01, 0.01);
-        let weight = map(i, 0, Math.PI * 50, 0.001, 0.02);
-        // lineOptions.weight = weight;
-        // lineOptions.blurFactor = blur;
+    let s = 0.15;
+    for (let i = 0; i < Math.PI * 50; i += 0.5) {
+        let blur = map(i, 0, Math.PI * 50, 0.005, 0.005);
+        let weight = map(i, 0, Math.PI * 50, 0.0001, 0.005);
+        lineOptions.weight = weight;
+        lineOptions.blurFactor = blur;
         // lineOptions.blurFactor = map(i, 0, Math.PI * 50, 0.01, 0.r1);
         let maxG = map(sin(frameCount * 0.01), -1, 1, 0, 1);
         let r = map(i, 0, Math.PI * 50, 1.0, 0.5);
         // r = map(sin(i * 0.1), -1, 1, 0.0, 1.0);
         let g = map(i, 0, Math.PI * 50, 0.5, maxG);
-        let b = map(i, 0, Math.PI * 50, 0.0, 0.7);
+        let b = map(i, 0, Math.PI * 50, 0.0, 0.2);
         lineOptions.r = r;
         lineOptions.g = g;
         lineOptions.b = b;
-        let x0 = cos(frameCount * 0.0001) * cos(frameCount * 0.025 + i) * i * s;
-        let y0 = cos(frameCount * 0.0001) * sin(frameCount * 0.025 + i) * i * s;
-        let x1 = cos(frameCount * 0.01) * cos(frameCount * 0.025 + i + 1) * (i + 1) * s * 0.25;
-        let y1 = cos(frameCount * 0.01) * sin(frameCount * 0.025 + i + 1) * (i + 1) * s * 0.25;
-        makeLine(x0 * 1, y0 * 1, x1 * 8, y1 * 8);
+        let x0 = cos(frameCount * 0.025 + i) * i * s;
+        let y0 = sin(frameCount * 0.025 + i) * i * s;
+        let x1 = cos(frameCount * 0.125 + i + 1) * (i + 1) * s * 0.25;
+        let y1 = sin(frameCount * 0.125 + i + 1) * (i + 1) * s * 0.25;
+        makeLine(x0 * 1 * s, y0 * 1 * s, x1 * 1.1 * s, y1 * 1.1 * s);
         amountOfLines++;
     }
 
