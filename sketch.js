@@ -83,6 +83,8 @@ function draw() {
         ]
     });
     addRectangleToBuffers(rectangle);
+
+    setShaders2();
     // let r = map(sin(frameCount * 0.15), -1, 1, 0, 1);
     // rectangle = makeQuad({
     //     c: [0.9, r, 1 - r, 1.0],

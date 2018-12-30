@@ -3,7 +3,7 @@ function setShaders() {
 
     // vertex shader source code
     var vertCode = `
-    attribute vec3 coordinates;
+        attribute vec3 coordinates;
         attribute vec4 color;
         varying vec4 vColor;
         void main(void) {
