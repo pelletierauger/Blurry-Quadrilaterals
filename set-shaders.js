@@ -32,7 +32,7 @@ function setShaders() {
     void main(void) {
         vec2 pos = gl_PointCoord;
         float rando = rand(pos);
-        gl_FragColor = vec4(vColor.x, vColor.y, vColor.z + (rando * 0.3), vColor.w - (rando * 0.3));
+        gl_FragColor = vec4(vColor.x, vColor.y, vColor.z + (rando * 0.3), vColor.w -(rando * 0.3));
         // gl_FragColor = vColor;
     }`;
 

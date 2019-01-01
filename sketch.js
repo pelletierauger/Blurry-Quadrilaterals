@@ -74,7 +74,7 @@ function draw() {
     let rectangle;
 
     rectangle = makeQuad({
-        c: [0.9, 0.2, 0.1, 0.75],
+        c: [0.8, 0.2, 0.1, 0.75],
         v: [
             [-2 + (Math.sin(t * 0.05) * osc), -2 + (Math.cos(t * 0.05) * osc)],
             [2 + (Math.sin(t * 0.015) * osc), -2 + (Math.cos(t * 0.015) * osc)],
@@ -141,14 +141,14 @@ function draw() {
     lineOptions.weight = 0.001;
     // lineOptions.blurFactor = 0.01;
     amountOfLines = 0;
-    let s = 0.15;
-    for (let i = 0; i < Math.PI * 50; i += 0.5) {
+    let s = 0.049;
+    for (let i = 0; i < Math.PI * 250; i += 0.95) {
         let blur = map(i, 0, Math.PI * 50, 0.005, 0.005);
-        let weight = map(i, 0, Math.PI * 50, 0.0001, 0.005);
+        let weight = map(i, 0, Math.PI * 50, 0.001, 0.00825);
         lineOptions.weight = weight;
         lineOptions.blurFactor = blur;
         // lineOptions.blurFactor = map(i, 0, Math.PI * 50, 0.01, 0.r1);
-        let maxG = map(sin(frameCount * 0.01), -1, 1, 0, 1);
+        let maxG = map(sin(68 * 0.01), -1, 1, 0, 1);
         let r = map(i, 0, Math.PI * 50, 1.0, 0.5);
         // r = map(sin(i * 0.1), -1, 1, 0.0, 1.0);
         let g = map(i, 0, Math.PI * 50, 0.5, maxG);
@@ -156,11 +156,13 @@ function draw() {
         lineOptions.r = r;
         lineOptions.g = g;
         lineOptions.b = b;
-        let x0 = cos(frameCount * 0.025 + i) * i * s;
-        let y0 = sin(frameCount * 0.025 + i) * i * s;
-        let x1 = cos(frameCount * 0.125 + i + 1) * (i + 1) * s * 0.25;
-        let y1 = sin(frameCount * 0.125 + i + 1) * (i + 1) * s * 0.25;
-        makeLine(x0 * 1 * s, y0 * 1 * s, x1 * 1.1 * s, y1 * 1.1 * s);
+        let val = map(sin(frameCount * 0.025), -1, 1, 15, 22);
+        // val = frameCount;
+        let x0 = cos(val * 0.25 * 0.25 + i) * i * s;
+        let y0 = sin(val * 0.25 * 0.25 + i) * i * s;
+        let x1 = cos(val * 0.025 * 0.25 + i + 1) * (i + 1) * s * 1;
+        let y1 = sin(val * 8 * 0.025 * 0.25 + i + 1) * (i + 1) * s * 1;
+        makeLine(x0 * 2 * s, y0 * 1 * s, x1 * 2 * s, y1 * 1 * s);
         amountOfLines++;
     }
 
