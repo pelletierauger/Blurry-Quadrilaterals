@@ -141,8 +141,9 @@ function draw() {
     lineOptions.weight = 0.001;
     // lineOptions.blurFactor = 0.01;
     amountOfLines = 0;
-    let s = 0.049;
-    for (let i = 0; i < Math.PI * 250; i += 0.95) {
+    let s = 0.2;
+    let increment = 0.01;
+    for (let i = 0; i < Math.PI * 25; i += increment) {
         let blur = map(i, 0, Math.PI * 50, 0.005, 0.005);
         let weight = map(i, 0, Math.PI * 50, 0.001, 0.00825);
         lineOptions.weight = weight;
@@ -157,12 +158,12 @@ function draw() {
         lineOptions.g = g;
         lineOptions.b = b;
         let val = map(sin(frameCount * 0.025), -1, 1, 15, 22);
-        // val = frameCount;
-        let x0 = cos(val * 0.25 * 0.25 + i) * i * s;
-        let y0 = sin(val * 0.25 * 0.25 + i) * i * s;
-        let x1 = cos(val * 0.025 * 0.25 + i + 1) * (i + 1) * s * 1;
-        let y1 = sin(val * 8 * 0.025 * 0.25 + i + 1) * (i + 1) * s * 1;
-        makeLine(x0 * 2 * s, y0 * 1 * s, x1 * 2 * s, y1 * 1 * s);
+        val = frameCount;
+        let x0 = cos(val * 1 * 0.25 + i) * i * s;
+        let y0 = sin(val * 1 * 0.25 + i) * i * s;
+        let x1 = cos(val * 1 * 0.25 + i + increment) * (i + increment) * s * 1.1 * 1;
+        let y1 = sin(val * 1 * 0.25 + i + increment) * (i + increment) * s * 1.1 * 1;
+        makeLine(x0 * 1 * s, y0 * 1 * s, x1 * 1 * s, y1 * 1 * s);
         amountOfLines++;
     }
 
